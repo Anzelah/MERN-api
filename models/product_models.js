@@ -12,3 +12,7 @@ const productsSchema = new Schema(
         timestamps: true
     }
 )
+
+const Product = mongoose.models('Product', productsSchema);
+
+module.exports = Product;
