@@ -1,11 +1,10 @@
 const express = require('express')
 const Product = require('../models/product_models')
-
 const router = express.Router()
 
 
 // GET method
-router.get('/products', async(req, res) => {
+router.get('/', async(req, res) => {
     try {
         const product = await Product.find({})
         res.status(200).json(product)
@@ -15,7 +14,7 @@ router.get('/products', async(req, res) => {
     }
 })
 
-router.get('/products/:id', async(req, res) => {
+router.get('/:id', async(req, res) => {
     try {
         const { id } = req.params
         const product = await Product.findById(id)
@@ -27,7 +26,7 @@ router.get('/products/:id', async(req, res) => {
 })
 
 // POST method
-router.post('/products', async(req, res) => {
+router.post('/', async(req, res) => {
     try {
         const product = await Product.create(req.body)
         res.status(201).json(req.body)
@@ -38,7 +37,7 @@ router.post('/products', async(req, res) => {
 })
 
 // PUT method
-router.put('/products/:id', async(req, res) => {
+router.put('/:id', async(req, res) => {
     try {
         const { id } = req.params
         const product = await Product.findByIdAndUpdate(id, req.body)
@@ -54,7 +53,7 @@ router.put('/products/:id', async(req, res) => {
 })
 
 // DELETE method
-router.delete('/products/:id', async(req, res) => {
+router.delete('/:id', async(req, res) => {
     try {
         const { id } = req.params
         const product = await Product.findByIdAndDelete(id)
