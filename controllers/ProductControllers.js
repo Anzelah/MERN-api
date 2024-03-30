@@ -51,7 +51,7 @@ const updateProduct = async(req, res) => {
     }
 }
 
-// delete a single product from database
+// delete one single product from database
 const deleteProduct = async(req, res) => {
     try {
         const { id } = req.params
