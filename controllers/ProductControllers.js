@@ -1,42 +1,43 @@
 const Product = require('../models/product_models')
+const asyncHandler = require('express-async-handler')
 
 
 // get all products
-const getProducts = async(req, res) => {
+const getProducts = asyncHandler(async (req, res) => {
     try {
         const product = await Product.find({})
         res.status(200).json(product)
     } catch (error) {
-        console.log(error)
-        res.status(500).json({ message: error.message })
+        res.status(500)
+        throw new Error(error.message)
     }
-}
+})
 
 // get specific product by id
-const getSpecificProduct = async(req, res) => {
+const getSpecificProduct = asyncHandler(async (req, res) => {
     try {
         const { id } = req.params
         const product = await Product.findById(id)
         res.status(200).json(product)
     } catch (error) {
-        console.log(error)
-        res.status(500).json({ message: error.message })
+        res.status(500)
+        throw new Error(error.message)
     }
-}
+})
 
 // create a product into the database
-const createProduct = async(req, res) => {
+const createProduct = asyncHandler(async (req, res) => {
     try {
         const product = await Product.create(req.body)
         res.status(201).json(req.body)
     } catch(error) {
-        console.log(error)
-        res.status(500).json({ message: error.message })
+        res.status(500)
+        throw new Error(error.message)
     }
-}
+})
 
 // update a product by id
-const updateProduct = async(req, res) => {
+const updateProduct = asyncHandler(async (req, res) => {
     try {
         const { id } = req.params
         const product = await Product.findByIdAndUpdate(id, req.body)
@@ -46,13 +47,13 @@ const updateProduct = async(req, res) => {
         const updatedProduct = await Product.findById(id)
         res.status(200).json(updatedProduct)
     } catch(error) {
-        console.log(error)
-        res.status(500).json({ message: error.message })
+        res.status(500)
+        throw new Error(error.message)
     }
-}
+})
 
 // delete one single product from database
-const deleteProduct = async(req, res) => {
+const deleteProduct = asyncHandler(async (req, res) => {
     try {
         const { id } = req.params
         const product = await Product.findByIdAndDelete(id)
@@ -61,10 +62,10 @@ const deleteProduct = async(req, res) => {
         
         res.status(200).json(product)
     } catch(error) {
-        console.log(error)
-        res.status(500).json({ message: error.message })
+        res.status(500)
+        throw new Error(error.message)
     }
-}
+})
 
 module.exports = {
     getProducts,
