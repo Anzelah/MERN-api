@@ -16,8 +16,11 @@ const getProducts = asyncHandler(async (req, res) => {
 // get specific product by id
 const getSpecificProduct = asyncHandler(async (req, res) => {
     try {
-        const { id } = req.params.id
+        const id  = req.params.id
         const product = await Product.findById(id)
+
+        if (!product) return res.status(404).json({ message: `Cannot find product with ID in database ${id}`})
+
         res.status(200).json(product)
     } catch (error) {
         res.status(500)
@@ -29,7 +32,7 @@ const getSpecificProduct = asyncHandler(async (req, res) => {
 const createProduct = asyncHandler(async (req, res) => {
     try {
         const product = await Product.create(req.body)
-        res.status(201).json(req.body)
+        res.status(201).json(product)
     } catch(error) {
         res.status(500)
         throw new Error(error.message)
@@ -39,7 +42,7 @@ const createProduct = asyncHandler(async (req, res) => {
 // update a product by id
 const updateProduct = asyncHandler(async (req, res) => {
     try {
-        const { id } = req.params.id
+        const id = req.params.id
         const product = await Product.findByIdAndUpdate(id, req.body)
         
         if (!product) return res.status(404).json({ message: `Cannot find product with ID in database ${id}`})
@@ -55,7 +58,7 @@ const updateProduct = asyncHandler(async (req, res) => {
 // delete one single product from database
 const deleteProduct = asyncHandler(async (req, res) => {
     try {
-        const { id } = req.params.id
+        const id = req.params.id
         const product = await Product.findByIdAndDelete(id)
         
         if (!product) return res.status(404).json({ message: `Cannot find product with ID ${id}`})
