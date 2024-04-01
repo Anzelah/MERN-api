@@ -61,7 +61,7 @@ const updateProduct = asyncHandler(async (req, res) => {
 // delete one single product from database
 const deleteProduct = asyncHandler(async (req, res) => {
     try {
-        const id = req.params.id
+        const { id } = req.params
         const product = await Product.findByIdAndDelete(id)
         
         if (!product) {
