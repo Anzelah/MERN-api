@@ -12,7 +12,6 @@ const getProducts = asyncHandler(async (req, res) => {
         const product = await Product.find({})
         res.status(200).json(product)
     } catch (error) {
-        res.status(500)
         throw new Error(error.message)
     }
 })
@@ -22,19 +21,18 @@ const getSpecificProduct = asyncHandler(async (req, res) => {
     try {
         const id  = req.params.id
         if (!isValidObjectId(id) ) {
-            res.status(400);
-            throw new Error(`Invalid product ID: <${id}> should be 24 characters`)
+            res.status(400)
+            throw new Error(`Invalid product ID: <${id}> must be 24 characters`)
         }
-        const product = await Product.findById(id)
 
+        const product = await Product.findById(id)
         if (!product)  {
-            res.status(404);
-            throw new Error(`Cannot find product with ID <${id}> in database`);
+            res.status(404)
+            throw new Error(`Cannot find product with ID <${id}> in database`)
         }
         res.status(200).json(product)
 
     } catch (error) {
-        res.status(500)
         throw new Error(error.message)
     }
 })
@@ -55,20 +53,19 @@ const updateProduct = asyncHandler(async (req, res) => {
     try {
         const id = req.params.id
         if (!isValidObjectId(id) ) {
-            res.status(400);
-            throw new Error(`Invalid product ID: <${id}> should be 24 characters`)
+            res.status(400)
+            throw new Error(`Invalid product ID: <${id}> must be 24 characters`)
         }
+
         const product = await Product.findByIdAndUpdate(id, req.body)
-        
         if (!product) {
-            res.status(404);
-            throw new Error(`Cannot find product with ID <${id}> in database`);
+            res.status(404)
+            throw new Error(`Cannot find product with ID <${id}> in database`)
         }
         
         const updatedProduct = await Product.findById(id)
         res.status(200).json(updatedProduct)
     } catch(error) {
-        res.status(500)
         throw new Error(error.message)
     }
 })
@@ -78,19 +75,18 @@ const deleteProduct = asyncHandler(async (req, res) => {
     try {
         const { id } = req.params
         if (!isValidObjectId(id) ) {
-            res.status(400);
-            throw new Error(`Invalid product ID: <${id}> should be 24 characters`)
+            res.status(400)
+            throw new Error(`Invalid product ID: <${id}> must be 24 characters`)
         }
+
         const product = await Product.findByIdAndDelete(id)
-        
         if (!product) {
-            res.status(404);
-            throw new Error(`Cannot find product with ID <${id}> in database`);
+            res.status(404)
+            throw new Error(`Cannot find product with ID <${id}> in database`)
         }
         res.status(200).json(product);
 
     } catch(error) {
-        res.status(500)
         throw new Error(error.message)
     }
 })
