@@ -2,6 +2,7 @@ require('dotenv').config()
 const express = require('express')
 const mongoose = require('mongoose')
 const productRoute = require('./routes/ProductRoutes')
+const userRoute = require('./routes/UserRoutes')
 const errorMiddleware = require('./middleware/errorMiddleware')
 const app = express()
 
@@ -13,6 +14,7 @@ app.use(express.json())
 app.use(express.urlencoded({ extended: false }))
 // routes
 app.use('/api/products', productRoute)
+app.use('/api/login', userRoute)
 // error middleware
 app.use(errorMiddleware)
 

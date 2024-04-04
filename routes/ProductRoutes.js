@@ -2,7 +2,7 @@ const express = require('express')
 const { getProducts, 
     getSpecificProduct,
     createProduct,
-    updateProduct, 
+    updateProduct,
     deleteProduct
 } = require('../controllers/ProductControllers')
 

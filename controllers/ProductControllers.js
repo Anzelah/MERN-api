@@ -1,6 +1,7 @@
 const Product = require('../models/product_models')
 const asyncHandler = require('express-async-handler')
 const { Types } = require('mongoose')
+const jwt = require('jsonwebtoken')
 
 
 const isValidObjectId = Types.ObjectId.isValid
@@ -38,13 +39,26 @@ const getSpecificProduct = asyncHandler(async (req, res) => {
 })
 
 // create a product into the database
-const createProduct = asyncHandler(async (req, res) => {
+const createProduct = asyncHandler( async(req, res) => {
     try {
+        // get the token from header
+        const bearer = req.headers['authorization']
+        const token = bearer.split(' ')[1]
+
+        // verify the token
+        jwt.verify(token, 'secretkey', (err, auth) => {
+            if (err) {
+                res.status(403)
+                throw new Error('Permission denied: Cannot verify the user')
+            }
+        });
+
+        // then create your products
         const product = await Product.create(req.body)
         res.status(201).json(product)
     } catch(error) {
-        res.status(500)
-        throw new Error(error.message)
+        res.status(403)
+        throw new Error('You dont have permission to access this resource')
     }
 })
 
@@ -90,6 +104,7 @@ const deleteProduct = asyncHandler(async (req, res) => {
         throw new Error(error.message)
     }
 })
+
 
 module.exports = {
     getProducts,
