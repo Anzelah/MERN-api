@@ -12,12 +12,12 @@ Go to the node website and install it according to your OS i.e. windows, mac, et
 
 3. Install Dependencies:
 Navigate to the project directory and install the required dependencies using npm(or yarn):
-<cd MERN-api>
-<npm install MongoDB>
-<npm install nodemon>
-<npm install express -g>
-<npm install jwtwebtoken>
-<npm install Mongoose>
+  <cd MERN-api>
+  <npm install MongoDB>
+  <npm install nodemon>
+  <npm install express -g>
+  <npm install jwtwebtoken>
+  <npm install Mongoose>
 
 4. Generate a package.json
 <npm init -y>
